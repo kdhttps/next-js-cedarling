@@ -1,16 +1,12 @@
 "use client";
 
-import { accountAtom } from "@/factories/atoms";
 import { makeUserAuthentication } from "@/factories/makeUserAuthentication";
 import { useCedarling } from "@/factories/useCedarling";
 import { AuthorizeResult } from "@janssenproject/cedarling_wasm";
-import { useAtom } from "jotai";
 import { useState } from "react";
 import { FaEdit, FaPlus, FaTrash } from "react-icons/fa";
 
 export default function TasksPage() {
-  const [user] = useAtom(accountAtom);
-
   const initialTasks = [
     {
       id: 1,
@@ -38,7 +34,7 @@ export default function TasksPage() {
     },
   ];
   const [tasks] = useState(initialTasks);
-  const { authorize, isLoading, error } = useCedarling();
+  const { authorize } = useCedarling();
   const userAuthentication = makeUserAuthentication();
 
   const cedarlingRequest = async (action: string) => {
@@ -84,7 +80,7 @@ export default function TasksPage() {
     }
   };
 
-  const handleUpdate = async (id: number) => {
+  const handleUpdate = async () => {
     try {
       const result = await cedarlingRequest("Update");
       console.log(result);
@@ -99,7 +95,7 @@ export default function TasksPage() {
     }
   };
 
-  const handleDelete = async (id: number) => {
+  const handleDelete = async () => {
     try {
       const result = await cedarlingRequest("Delete");
       console.log(result);
@@ -141,13 +137,13 @@ export default function TasksPage() {
               <td>
                 <button
                   className="btn btn-sm btn-warning me-2"
-                  onClick={() => handleUpdate(task.id)}
+                  onClick={() => handleUpdate()}
                 >
                   <FaEdit />
                 </button>
                 <button
                   className="btn btn-sm btn-danger"
-                  onClick={() => handleDelete(task.id)}
+                  onClick={() => handleDelete()}
                 >
                   <FaTrash />
                 </button>

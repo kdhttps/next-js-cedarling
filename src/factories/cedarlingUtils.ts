@@ -26,6 +26,7 @@ class CedarlingClient {
   private static instance: CedarlingClient;
   private cedarling: Cedarling | null = null;
   private initialized = false;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private wasmModule: any = null;
 
   private constructor() {}
@@ -37,6 +38,7 @@ class CedarlingClient {
     return CedarlingClient.instance;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async initialize(policyStoreConfig: any): Promise<void> {
     if (!this.initialized) {
       this.wasmModule = await initWasm();
@@ -46,6 +48,7 @@ class CedarlingClient {
     }
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async authorize(request: any): Promise<AuthorizeResult> {
     if (!this.cedarling || !this.initialized) {
       throw new Error("Cedarling not initialized");

@@ -7,6 +7,7 @@ export function useCedarling() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
   const authorize = useCallback(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     async (request: any): Promise<AuthorizeResult> => {
       setIsLoading(true);
       setError(null);

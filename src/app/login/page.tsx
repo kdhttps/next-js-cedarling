@@ -21,7 +21,7 @@ export default function LoginPage() {
   const login = async () => {
     try {
       return auth.signinRedirect(loginPrompt.current);
-    } catch (e: any) {
+    } catch (e) {
       console.error(e);
     }
   };

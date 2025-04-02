@@ -42,7 +42,8 @@ export function ProtectedSection({
       try {
         const result = await authorize(request);
         setIsAuthorized(result.decision);
-      } catch (err: any) {
+      } catch (err) {
+        console.error("ProtectedSection error:", err);
         setIsAuthorized(false);
       }
     };

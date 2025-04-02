@@ -1,7 +1,7 @@
 "use client";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import {
   cedarlingBootstrapProperties,
   cedarlingClient,
@@ -31,7 +31,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        {children}
+        <Suspense>{children}</Suspense>
       </body>
     </html>
   );

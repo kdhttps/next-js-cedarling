@@ -23,7 +23,7 @@ export default function DashboardLayout({
     if (!user.email) {
       router.push("/login");
     }
-  }, [user.email]);
+  }, [router, user.email]);
 
   return (
     <div className="container-fluid">
