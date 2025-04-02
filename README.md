@@ -35,3 +35,5 @@ docker build -t next-js-cedarling .
 
 docker run -p 3000:3000 next-js-cedarling
 ```
+
+Open `http://localhost:3000/` URL in your browser to access application.
