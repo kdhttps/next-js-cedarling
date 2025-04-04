@@ -2,6 +2,14 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
+Make `.env` file in root and add below config for OAuth Login
+
+```
+NEXT_PUBLIC_OP_SERVER=https://your-op-server
+NEXT_PUBLIC_OP_CLIENT_ID=
+NEXT_PUBLIC_URL=http://localhost:3000
+```
+
 First, run the development server:
 
 ```bash
