@@ -15,10 +15,7 @@ export const cedarlingBootstrapProperties = {
   CEDARLING_LOG_LEVEL: "TRACE",
   CEDARLING_LOG_TTL: 120,
   CEDARLING_PRINCIPAL_BOOLEAN_OPERATION: {
-    or: [
-      { "===": [{ var: "Jans::Workload" }, "ALLOW"] },
-      { "===": [{ var: "Jans::User" }, "ALLOW"] },
-    ],
+    "===": [{ var: "Jans::User" }, "ALLOW"],
   },
 };
 
