@@ -8,11 +8,9 @@ export const cedarlingBootstrapProperties = {
   CEDARLING_APPLICATION_NAME: "AgamaLab",
   CEDARLING_POLICY_STORE_URI:
     "https://raw.githubusercontent.com/kdhttps/pd-first/refs/heads/agama-lab-policy-designer/87d2c8877a2455a16149c55d956565e1d18ac81ba10a.json",
-  CEDARLING_POLICY_STORE_ID: "4c996315c8165b5f79a960bb62769c39a054ce7b8550",
   CEDARLING_USER_AUTHZ: "enabled",
-  CEDARLING_WORKLOAD_AUTHZ: "disabled",
   CEDARLING_LOG_TYPE: "std_out",
-  CEDARLING_LOG_LEVEL: "TRACE",
+  CEDARLING_LOG_LEVEL: "INFO",
   CEDARLING_LOG_TTL: 120,
   CEDARLING_PRINCIPAL_BOOLEAN_OPERATION: {
     "===": [{ var: "Jans::User" }, "ALLOW"],
