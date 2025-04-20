@@ -5,7 +5,7 @@ import initWasm, {
 } from "@janssenproject/cedarling_wasm";
 
 export const cedarlingBootstrapProperties = {
-  CEDARLING_APPLICATION_NAME: "AgamaLab",
+  CEDARLING_APPLICATION_NAME: "TaskManager",
   CEDARLING_POLICY_STORE_URI:
     "https://raw.githubusercontent.com/kdhttps/pd-first/refs/heads/agama-lab-policy-designer/87d2c8877a2455a16149c55d956565e1d18ac81ba10a.json",
   CEDARLING_USER_AUTHZ: "enabled",
