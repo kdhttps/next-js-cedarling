@@ -67,7 +67,7 @@ export default function LoginPage() {
       <div className="card p-4" style={{ width: "400px" }}>
         <h2 className="text-center mb-4">Login</h2>
         <button type="button" onClick={login} className="btn btn-success w-100">
-          Login With Jans
+          Login With Auth0
         </button>
       </div>
     </div>

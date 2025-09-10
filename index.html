@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>OIDC PKCE Demo</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <h1>OIDC Code Flow with PKCE</h1>
+    <button onclick="redirectToAuth()">Login</button>
+    <pre id="output"></pre>
+
+    <script>
+      const CLIENT_ID = "PcO963SDaW1GCeE9VEW5oCpKcflDY3PI";
+      const AUTH_SERVER = "https://dev-1e737fn2gji0j3fe.us.auth0.com"; // No trailing slash
+      const REDIRECT_URI = "http://localhost:3000"; // or wherever you're hosting
+
+      function base64URLEncode(str) {
+        return btoa(String.fromCharCode(...new Uint8Array(str)))
+          .replace(/\+/g, "-")
+          .replace(/\//g, "_")
+          .replace(/=+$/, "");
+      }
+
+      async function generatePKCECodes() {
+        const codeVerifier = base64URLEncode(
+          crypto.getRandomValues(new Uint8Array(32))
+        );
+        const digest = await crypto.subtle.digest(
+          "SHA-256",
+          new TextEncoder().encode(codeVerifier)
+        );
+        const codeChallenge = base64URLEncode(digest);
+        return { codeVerifier, codeChallenge };
+      }
+
+      async function redirectToAuth() {
+        const { codeVerifier, codeChallenge } = await generatePKCECodes();
+        sessionStorage.setItem("pkce_code_verifier", codeVerifier);
+
+        const params = new URLSearchParams({
+          client_id: CLIENT_ID,
+          response_type: "code",
+          redirect_uri: REDIRECT_URI,
+          scope: "openid profile email",
+          code_challenge: codeChallenge,
+          code_challenge_method: "S256",
+          audience: "https://dev-1e737fn2gji0j3fe.us.auth0.com/api/v2/",
+        });
+
+        window.location = `${AUTH_SERVER}/authorize?${params.toString()}`;
+      }
+
+      async function getToken(code) {
+        const codeVerifier = sessionStorage.getItem("pkce_code_verifier");
+
+        const payload = new URLSearchParams({
+          grant_type: "authorization_code",
+          code,
+          redirect_uri: REDIRECT_URI,
+          client_id: CLIENT_ID,
+          code_verifier: codeVerifier,
+          // audience: "https://dev-1e737fn2gji0j3fe.us.auth0.com/api/v2",
+        });
+
+        const response = await axios.post(
+          `${AUTH_SERVER}/oauth/token`,
+          payload,
+          {
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+          }
+        );
+
+        return response.data;
+      }
+
+      async function callProtectedAPI(accessToken) {
+        const response = await axios.get("https://api.example.com/protected", {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
+        return response.data;
+      }
+
+      async function handleCallback() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const code = urlParams.get("code");
+        if (code) {
+          try {
+            const tokenData = await getToken(code);
+            document.getElementById("output").textContent = JSON.stringify(
+              tokenData,
+              null,
+              2
+            );
+            // Optionally call an API
+            // const apiData = await callProtectedAPI(tokenData.access_token);
+            // console.log('API:', apiData);
+          } catch (err) {
+            console.error("Token error", err);
+            document.getElementById("output").textContent = "Error: " + err;
+          }
+        }
+      }
+
+      // Automatically handle callback if redirected
+      window.onload = handleCallback;
+    </script>
+  </body>
+</html>

@@ -7,14 +7,18 @@ import initWasm, {
 export const cedarlingBootstrapProperties = {
   CEDARLING_APPLICATION_NAME: "TaskManager",
   CEDARLING_POLICY_STORE_URI:
-    "https://raw.githubusercontent.com/kdhttps/pd-first/refs/heads/agama-lab-policy-designer/87d2c8877a2455a16149c55d956565e1d18ac81ba10a.json",
+    "https://raw.githubusercontent.com/kdhttps/pd-first/refs/heads/agama-lab-policy-designer/68d7de89efe3b9fe12dfa7b23375113b1162ea5c7477.json",
   CEDARLING_USER_AUTHZ: "enabled",
   CEDARLING_LOG_TYPE: "std_out",
-  CEDARLING_LOG_LEVEL: "INFO",
+  CEDARLING_LOG_LEVEL: "TRACE",
   CEDARLING_LOG_TTL: 120,
   CEDARLING_PRINCIPAL_BOOLEAN_OPERATION: {
     "===": [{ var: "Jans::User" }, "ALLOW"],
   },
+  // CEDARLING_ID_TOKEN_TRUST_MODE: "never",
+  CEDARLING_JWT_SIG_VALIDATION: "disabled",
+  CEDARLING_JWT_STATUS_VALIDATION: "disabled",
+  CEDARLING_JWT_SIGNATURE_ALGORITHMS_SUPPORTED: ["RS256"],
 };
 
 class CedarlingClient {

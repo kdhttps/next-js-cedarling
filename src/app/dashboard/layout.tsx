@@ -32,7 +32,9 @@ export default function DashboardLayout({
         <div className="col-md-2 bg-light vh-100 p-3">
           <h2 className="mb-4">Next JS</h2>
           <h4 className="mb-4">{user.email}</h4>
-          <h6 className="mb-4">{user.roles && user.roles.map((r) => r)}</h6>
+          <h6 className="mb-4">
+            {user.roles && user.roles.map((r) => r + " ")}
+          </h6>
           <ul className="nav flex-column">
             <li className="nav-item">
               <Link href="/dashboard/tasks" className="nav-link">

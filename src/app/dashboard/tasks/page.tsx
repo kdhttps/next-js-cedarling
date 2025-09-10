@@ -48,9 +48,10 @@ export default function TasksPage() {
       },
       action: `Jans::Action::"${action}"`,
       resource: {
-        type: "Jans::Task",
-        id: "App",
-        app_id: "App",
+        cedar_entity_mapping: {
+          entity_type: "Jans::Task",
+          id: "App",
+        },
         name: "App",
         url: {
           host: "jans.test",

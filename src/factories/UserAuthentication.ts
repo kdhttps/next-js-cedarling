@@ -40,10 +40,20 @@ export class UserAuthentication implements IUserAuthentication {
   }
 
   async signinRedirect(prompt: string | undefined): Promise<void> {
+    const extraQueryParams = {
+      audience: "https://gluu.org/role",
+      organization: "org_8QJDVsYR0XwICxLf",
+    };
+
     if (prompt) {
-      return this.userManager.signinRedirect({ prompt });
+      return this.userManager.signinRedirect({
+        prompt,
+        extraQueryParams,
+      });
     }
-    return this.userManager.signinRedirect();
+    return this.userManager.signinRedirect({
+      extraQueryParams,
+    });
   }
 
   async verifyCodeAndGetAccessToken(): Promise<string | Error | undefined> {
